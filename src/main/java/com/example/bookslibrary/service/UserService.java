@@ -27,6 +27,10 @@ public class UserService implements UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public void saveUser(User user) {
         Role role = roleRepository.findByName("ROLE_USER");
         user.setRoles(List.of(role));

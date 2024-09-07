@@ -2,7 +2,6 @@ package com.example.bookslibrary.dto;
 
 public class UserDto {
 
-    private Long userId;
     private String username;
     private String email;
     private String password;
@@ -15,14 +14,6 @@ public class UserDto {
         this.username = username;
         this.email = email;
         this.password = password;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getUsername() {
