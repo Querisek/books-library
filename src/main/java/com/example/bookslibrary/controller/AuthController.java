@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
 
     private UserService userService;
-    private PasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -30,12 +28,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String saveUser(@ModelAttribute("user") UserDto userDto) {
-     //   User user = userService.findUserByUsername(userDto.getUsername());
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        userService.saveUser(user);
+        userService.saveUser(userDto);
         return "login";
     }
 
