@@ -6,12 +6,18 @@
 </head>
 <body>
 <h1>Registration</h1>
+<div th:if="${param.success}">
+    <p>You have registered.</p>
+</div>
 <form action="#" th:action="@{/register}" th:object="${user}" method="post">
     <input type="text" th:field=*{username} name="username" placeholder="Username"/>
+    <p th:errors="*{username}" th:if="${#fields.hasErrors('username')}"></p>
     <br><br>
     <input type="text" th:field=*{email} name="email" placeholder="Email"/>
+    <p th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></p>
     <br><br>
     <input type="password" th:field="*{password}" name="password" placeholder="Password"/>
+    <p th:errors="*{password}" th:if="${#fields.hasErrors('password')}"></p>
     <br><br>
     <button type="submit">Register</button>
 </form>

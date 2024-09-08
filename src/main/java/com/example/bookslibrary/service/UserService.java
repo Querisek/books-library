@@ -34,14 +34,22 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public void saveUser(UserDto userDto) {
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void saveUser(UserDto userDto) throws Exception {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         Role role = roleRepository.findByName("ROLE_USER");
-        user.setRoles(List.of(role));
-        userRepository.save(user);
+        if(role != null) {
+            user.setRoles(List.of(role));
+            userRepository.save(user);
+        } else {
+            throw new Exception("Could not find the role.");
+        }
     }
 
     @Override

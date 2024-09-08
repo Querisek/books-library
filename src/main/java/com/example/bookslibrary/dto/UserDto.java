@@ -1,9 +1,18 @@
 package com.example.bookslibrary.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+
 public class UserDto {
 
+    @NotEmpty(message = "Enter the username.")
     private String username;
+
+    @NotEmpty(message = "Enter the email.")
+    @Email(message = "Enter a valid email format.")
     private String email;
+
+    @NotEmpty(message = "Enter the password.")
     private String password;
 
     public UserDto() {
