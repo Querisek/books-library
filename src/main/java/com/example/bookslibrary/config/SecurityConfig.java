@@ -28,16 +28,11 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/authenticateTheUser")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/books", true)
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll());
-
+                .logout(logout -> logout
+                        .permitAll());
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

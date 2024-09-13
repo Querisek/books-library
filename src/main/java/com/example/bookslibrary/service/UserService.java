@@ -5,6 +5,8 @@ import com.example.bookslibrary.model.Role;
 import com.example.bookslibrary.model.User;
 import com.example.bookslibrary.repository.RoleRepository;
 import com.example.bookslibrary.repository.UserRepository;
+import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,25 +22,46 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
-    public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserDto findUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if(user != null) {
+            return modelMapper.map(user, UserDto.class);
+        } else {
+            throw new UsernameNotFoundException("Account with this username doesn't exist.");
+        }
     }
 
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public UserDto findUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if(user != null) {
+            return modelMapper.map(user, UserDto.class);
+        } else {
+            throw new UsernameNotFoundException("Account with this email doesn't exist.");
+        }
     }
 
-    public void saveUser(UserDto userDto) throws Exception {
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    @Transactional
+    public void saveUser(UserDto userDto) {
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
@@ -46,16 +69,17 @@ public class UserService implements UserDetailsService {
         Role role = roleRepository.findByName("ROLE_USER");
         if(role != null) {
             user.setRoles(List.of(role));
-            userRepository.save(user);
         } else {
-            throw new Exception("Could not find the role.");
+            role = new Role("ROLE_USER");
+            roleRepository.save(role);
+            user.setRoles(List.of(role));
         }
+        userRepository.save(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-
         if(user != null) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
                     user.getPassword(),

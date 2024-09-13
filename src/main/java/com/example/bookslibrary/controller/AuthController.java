@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AuthController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public AuthController(UserService userService) {
         this.userService = userService;
@@ -29,19 +29,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result) throws Exception {
-        if(userService.findUserByUsername(userDto.getUsername()) != null) {
+    public String saveUser(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result) {
+        if(userService.existsByUsername(userDto.getUsername())) {
             result.rejectValue("username", "error.username", "Account with this username already exists.");
         }
-
-        if(userService.findUserByEmail(userDto.getEmail()) != null) {
+        if(userService.existsByEmail(userDto.getEmail())) {
             result.rejectValue("email", "error.email", "Account with this email already exists.");
         }
-
         if(result.hasErrors()) {
             return "registration";
         }
-
         userService.saveUser(userDto);
         return "redirect:/register?success";
     }
@@ -49,10 +46,5 @@ public class AuthController {
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @GetMapping("/home")
-    public String home() {
-        return "home";
     }
 }
