@@ -7,6 +7,26 @@
     <title>Books Library</title>
 </head>
 <body>
-
+<div class="container mt-5">
+    <h2 class="text-light">Books library</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr class="text-center">
+            <th scope="col">Author</th>
+            <th scope="col">Name</th>
+            <th scope="col">Amount of pages</th>
+            <th scope="col">Available?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" th:each="book : ${books}">
+            <td th:text="${book.author}"/>
+            <td th:text="${book.name}"/>
+            <td th:text="${book.pages}"/>
+            <td th:text="${book.quantity}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
-
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
