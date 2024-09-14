@@ -24,4 +24,14 @@ public class BooksController {
         model.addAttribute("books", books);
         return "books";
     }
+
+    @GetMapping("/add")
+    public String addNewBook() {
+        return "newbook";
+    }
+
+    @GetMapping("/borrowed")
+    public String listBorrowedBooks() {
+        return "borrowedbooks";
+    }
 }

@@ -18,6 +18,9 @@
                             <div th:if="${param.error}">
                                 <p class="text-danger"><b>Invalid username or password.</b></p>
                             </div>
+                            <div th:if="${param.logout}">
+                                <p class="text-info"><b>You have been logged out successfully.</b></p>
+                            </div>
                             <form autocomplete="off" action="#" th:action="@{/authenticateTheUser}" method="post">
                                 <div class="form-outline form-white mb-4">
                                     <input type="text" name="username" id="inputUsernameLogin" class="form-control form-control-lg"/>

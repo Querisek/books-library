@@ -18,13 +18,13 @@ public class User {
 
     @NotEmpty
     @Size(min = 4, max = 30)
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @NotEmpty
     @Size(min = 5, max = 30)
     @Email
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotEmpty

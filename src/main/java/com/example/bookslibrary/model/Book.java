@@ -6,7 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
-@Table(name = "books")
+@Table(name = "books", uniqueConstraints =
+@UniqueConstraint(columnNames = {"author", "name"}))
 public class Book {
 
     @Id
@@ -19,7 +20,7 @@ public class Book {
     private String author;
 
     @NotEmpty
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
     @NotNull
