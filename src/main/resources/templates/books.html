@@ -15,6 +15,9 @@
 <body>
 <div class="container mt-5">
     <h2 class="mb-3 text-light">Books library</h2>
+    <div class="alert alert-primary" th:if="${param.newBook}">
+        Successfully added a new book to the library.
+    </div>
     <a class="btn btn-primary btn-sm" th:href="@{/books/add}">Add new book</a>
     <a class="btn btn-primary btn-sm" th:href="@{/books/borrowed}">Check borrowed books</a>
     <form class="d-inline" th:action="@{/logout}" method="post">

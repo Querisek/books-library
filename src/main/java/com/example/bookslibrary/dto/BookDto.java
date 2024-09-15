@@ -16,7 +16,7 @@ public class BookDto {
     @Range(min = 1, max = 30000)
     private Integer pages;
 
-    @NotNull
+    @NotNull(message = "Enter quantity.")
     @Range(min = 1, max = 10000)
     private Integer quantity;
 
@@ -54,11 +54,11 @@ public class BookDto {
         this.pages = pages;
     }
 
-    public @NotNull @Range(min = 1, max = 10000) Integer getQuantity() {
+    public @NotNull(message = "Enter quantity.") @Range(min = 1, max = 10000) Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(@NotNull @Range(min = 1, max = 10000) Integer quantity) {
+    public void setQuantity(@NotNull(message = "Enter quantity.") @Range(min = 1, max = 10000) Integer quantity) {
         this.quantity = quantity;
     }
 }

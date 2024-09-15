@@ -20,7 +20,7 @@ public class Book {
     private String author;
 
     @NotEmpty
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
 
     @NotNull
