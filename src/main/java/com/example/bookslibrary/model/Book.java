@@ -1,6 +1,7 @@
 package com.example.bookslibrary.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
@@ -15,11 +16,11 @@ public class Book {
     @Column(name = "book_id")
     private Long bookId;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "author")
     private String author;
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "name")
     private String name;
 
@@ -29,7 +30,7 @@ public class Book {
     private Integer pages;
 
     @NotNull
-    @Range(min = 1, max = 10000)
+    @Range(min = 0, max = 10000)
     @Column(name = "quantity")
     private Integer quantity;
 
@@ -75,11 +76,11 @@ public class Book {
         this.pages = pages;
     }
 
-    public @NotNull @Range(min = 1, max = 10000) Integer getQuantity() {
+    public @NotNull @Range(min = 0, max = 10000) Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(@NotNull @Range(min = 1, max = 10000) Integer quantity) {
+    public void setQuantity(@NotNull @Range(min = 0, max = 10000) Integer quantity) {
         this.quantity = quantity;
     }
 }

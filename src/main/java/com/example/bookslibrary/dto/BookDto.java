@@ -1,15 +1,16 @@
 package com.example.bookslibrary.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Range;
 
 public class BookDto {
 
-    @NotEmpty(message = "Enter author name.")
+    @NotBlank(message = "Enter author name.")
     private String author;
 
-    @NotEmpty(message = "Enter title.")
+    @NotBlank(message = "Enter title.")
     private String name;
 
     @NotNull(message = "Enter amount of pages.")
@@ -17,7 +18,7 @@ public class BookDto {
     private Integer pages;
 
     @NotNull(message = "Enter quantity.")
-    @Range(min = 1, max = 10000)
+    @Range(min = 0, max = 10000)
     private Integer quantity;
 
     public BookDto() {
@@ -30,19 +31,19 @@ public class BookDto {
         this.pages = pages;
     }
 
-    public @NotEmpty(message = "Enter author name.") String getAuthor() {
+    public @NotBlank(message = "Enter author name.") String getAuthor() {
         return author;
     }
 
-    public void setAuthor(@NotEmpty(message = "Enter author name.") String author) {
+    public void setAuthor(@NotBlank(message = "Enter author name.") String author) {
         this.author = author;
     }
 
-    public @NotEmpty(message = "Enter title.") String getName() {
+    public @NotBlank(message = "Enter title.") String getName() {
         return name;
     }
 
-    public void setName(@NotEmpty(message = "Enter title.") String name) {
+    public void setName(@NotBlank(message = "Enter title.") String name) {
         this.name = name;
     }
 
@@ -54,11 +55,11 @@ public class BookDto {
         this.pages = pages;
     }
 
-    public @NotNull(message = "Enter quantity.") @Range(min = 1, max = 10000) Integer getQuantity() {
+    public @NotNull(message = "Enter quantity.") @Range(min = 0, max = 10000) Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(@NotNull(message = "Enter quantity.") @Range(min = 1, max = 10000) Integer quantity) {
+    public void setQuantity(@NotNull(message = "Enter quantity.") @Range(min = 0, max = 10000) Integer quantity) {
         this.quantity = quantity;
     }
 }

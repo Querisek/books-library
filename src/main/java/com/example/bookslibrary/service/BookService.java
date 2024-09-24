@@ -30,6 +30,6 @@ public class BookService {
     }
 
     public boolean existsByAuthorAndName(String author, String name) {
-        return bookRepository.existsByAuthorAndName(author, name);
+        return bookRepository.existsByAuthorIgnoreCaseAndNameIgnoreCase(author, name);
     }
 }
