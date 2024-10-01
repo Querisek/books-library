@@ -5,40 +5,37 @@ import jakarta.validation.constraints.NotNull;
 
 public class BorrowedBookDto {
 
-    @NotNull
     private Long id;
 
-    @NotEmpty
     private UserDto user;
 
-    @NotEmpty
     private BookDto book;
 
     public BorrowedBookDto() {
 
     }
 
-    public @NotNull Long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(@NotNull Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public @NotEmpty UserDto getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(@NotEmpty UserDto user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
-    public @NotEmpty BookDto getBook() {
+    public BookDto getBook() {
         return book;
     }
 
-    public void setBook(@NotEmpty BookDto book) {
+    public void setBook(BookDto book) {
         this.book = book;
     }
 }

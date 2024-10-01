@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Range;
 
 public class BookDto {
 
+    private Long id;
+
     @NotBlank(message = "Enter author name.")
     private String author;
 
@@ -29,6 +31,14 @@ public class BookDto {
         this.author = author;
         this.name = name;
         this.pages = pages;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public @NotBlank(message = "Enter author name.") String getAuthor() {

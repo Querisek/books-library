@@ -20,7 +20,7 @@ public class BookService {
     }
 
     public List<BookDto> getAllBooks() {
-        return bookRepository.findAll().stream()
+        return bookRepository.findAllByOrderByName().stream()
                 .map(book -> modelMapper.map(book, BookDto.class))
                 .collect(Collectors.toList());
     }
@@ -31,5 +31,17 @@ public class BookService {
 
     public boolean existsByAuthorAndName(String author, String name) {
         return bookRepository.existsByAuthorIgnoreCaseAndNameIgnoreCase(author, name);
+    }
+
+    public BookDto findBookById(Long id) {
+        return modelMapper.map(bookRepository.findById(id), BookDto.class);
+    }
+
+    public void deleteBookById(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    public BookDto findBookByAuthorAndName(String author, String name) {
+        return modelMapper.map(bookRepository.findByAuthorIgnoreCaseAndNameIgnoreCase(author, name), BookDto.class);
     }
 }

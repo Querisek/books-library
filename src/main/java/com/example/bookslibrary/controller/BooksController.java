@@ -6,10 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,8 +45,22 @@ public class BooksController {
         return "redirect:/books?newBook";
     }
 
-    @GetMapping("/borrowed")
-    public String listBorrowedBooks() {
-        return "borrowedbooks";
+    @GetMapping("/edit")
+    public String editBook(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("book", bookService.findBookById(id));
+        return "editbook";
+    }
+
+    @PostMapping("/edit")
+    public String changeBookData(@Valid @ModelAttribute("book") BookDto book, BindingResult result) {
+        if(bookService.existsByAuthorAndName(book.getAuthor(), book.getName()) && (!book.getId().equals(bookService.findBookByAuthorAndName(book.getAuthor(), book.getName()).getId()))) {
+            result.rejectValue("author", "error.author", "Book with this author for the given book already exists.");
+            result.rejectValue("name", "error.name", "Book with provided name and author already exists.");
+        }
+        if(result.hasErrors()) {
+            return "editbook";
+        }
+        bookService.addNewBook(book);
+        return "redirect:/books?successfully-edited";
     }
 }
