@@ -29,7 +29,7 @@ public class BooksController {
     @GetMapping("/add")
     public String addNewBook(Model model) {
         model.addAttribute("book", new BookDto());
-        return "newbook";
+        return "book-new";
     }
 
     @PostMapping("/saveNewBook")
@@ -39,7 +39,7 @@ public class BooksController {
             result.rejectValue("name", "error.name", "Book with provided name and author already exists.");
         }
         if(result.hasErrors()) {
-            return "newbook";
+            return "book-new";
         }
         bookService.addNewBook(book);
         return "redirect:/books?newBook";
@@ -48,7 +48,7 @@ public class BooksController {
     @GetMapping("/edit")
     public String editBook(@RequestParam("id") Long id, Model model) {
         model.addAttribute("book", bookService.findBookById(id));
-        return "editbook";
+        return "book-edit";
     }
 
     @PostMapping("/edit")
@@ -58,7 +58,7 @@ public class BooksController {
             result.rejectValue("name", "error.name", "Book with provided name and author already exists.");
         }
         if(result.hasErrors()) {
-            return "editbook";
+            return "book-edit";
         }
         bookService.addNewBook(book);
         return "redirect:/books?successfully-edited";

@@ -52,7 +52,7 @@ public class BorrowedBookController {
     @GetMapping("/books/borrowed")
     public String listBorrowedBooks(Model model) {
         model.addAttribute("borrowedBooks", borrowedBookService.findBorrowedBooksByUser(SecurityContextHolder.getContext().getAuthentication().getName()));
-        return "borrowedbooks";
+        return "borrowed-books-user";
     }
 
     @GetMapping("/books/borrowed/return")
@@ -85,6 +85,6 @@ public class BorrowedBookController {
     @GetMapping("/books/borrowed/all")
     public String listAllBorrowedBooks(Model model) {
         model.addAttribute("borrowedBooks", borrowedBookService.findAllByName());
-        return "borrowed-books-all";
+        return "borrowed-books-list";
     }
 }
