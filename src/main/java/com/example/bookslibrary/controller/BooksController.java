@@ -42,7 +42,7 @@ public class BooksController {
             return "book-new";
         }
         bookService.addNewBook(book);
-        return "redirect:/books?newBook";
+        return "redirect:/books?new-book";
     }
 
     @GetMapping("/edit")
@@ -61,6 +61,6 @@ public class BooksController {
             return "book-edit";
         }
         bookService.addNewBook(book);
-        return "redirect:/books?successfully-edited";
+        return "redirect:/books?book-successfully-edited";
     }
 }

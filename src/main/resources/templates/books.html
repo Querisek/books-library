@@ -15,8 +15,30 @@
 <body>
 <div class="container mt-5">
     <h2 class="mb-3 text-light">Books library</h2>
-    <div class="alert alert-primary" th:if="${param.newBook}">
+    <div class="alert alert-primary" th:if="${param['new-book']}">
         Successfully added a new book to the library.
+    </div>
+    <div class="alert alert-primary" th:if="${param['book-successfully-edited']}">
+        Successfully edited a book.
+    </div>
+    <div class="alert alert-success" th:if="${param['book-successfully-deleted']}">
+        Successfully deleted a book from the library.
+    </div>
+    <div class="alert alert-danger" th:if="${param['book-not-found']}">
+        Book with given id does not exist.
+    </div>
+    <div class="alert alert-danger" th:if="${param['book-not-available']}">
+        Book is currently not available in the library.
+    </div>
+    <div class="alert alert-danger" th:if="${param['books-not-returned']}">
+        You can not delete a book if all books are not returned to the library.
+    </div>
+
+    <div class="alert alert-danger" th:if="${param['book-already-borrowed']}">
+        You have already borrowed this book.
+    </div>
+    <div class="alert alert-success" th:if="${param['book-successfully-borrowed']}">
+        You have successfully borrowed the book.
     </div>
     <a class="btn btn-primary btn-sm" th:href="@{/books/add}">Add new book</a>
     <a class="btn btn-primary btn-sm" th:href="@{/books/borrowed/all}">Check borrowed books</a>

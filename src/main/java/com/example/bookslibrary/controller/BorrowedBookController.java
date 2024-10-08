@@ -58,19 +58,19 @@ public class BorrowedBookController {
     @GetMapping("/books/borrowed/return")
     public String returnBorrowedBook(@RequestParam("id") Long id) {
         if(borrowedBookService.findById(id) == null) {
-            return "redirect:/books/borrowed?not-found";
+            return "redirect:/books/borrowed?book-not-found";
         }
         if(borrowedBookService.findById(id).getUser().getEmail().equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
             borrowedBookService.returnToLibrary(borrowedBookService.findById(id));
-            return "redirect:/books/borrowed?succesfully-returned";
+            return "redirect:/books/borrowed?book-successfully-returned";
         }
-        return "redirect:/books/borrowed?not-found";
+        return "redirect:/books/borrowed?book-not-found";
     }
 
     @GetMapping("/books/delete")
     public String deleteBook(@RequestParam("id") Long id) {
         if(bookService.findBookById(id) == null) {
-            return "redirect:/books?not-found";
+            return "redirect:/books?book-not-found";
         }
         List<BorrowedBookDto> borrowedBooks = borrowedBookService.findAll();
         for(BorrowedBookDto borrowedBook : borrowedBooks) {
