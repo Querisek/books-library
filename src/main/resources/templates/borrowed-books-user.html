@@ -15,6 +15,12 @@
 <body>
 <div class="container mt-5">
   <h2 class="mb-3 text-light">List of borrowed books</h2>
+  <div class="alert alert-danger" th:if="${param['book-not-found']}">
+    Book with given id can not be found.
+  </div>
+  <div class="alert alert-success" th:if="${param['book-successfully-returned']}">
+    Book has been successfully returned to the library.
+  </div>
   <a class="btn btn-primary btn-sm" th:href="@{/books}">Return</a>
   <form class="d-inline" th:action="@{/logout}" method="post">
     <button class="btn btn-primary btn-sm" type="submit">Logout</button>
